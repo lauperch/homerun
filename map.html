@@ -70,15 +70,26 @@
               var latLngGuess = new google.maps.LatLng(destLat, destLng);
               var markerHome = new google.maps.Marker({
                   position: latLngHome,
-                  title: "home",
+                  label: "home"
               });
               var markerGuess = new google.maps.Marker({
                   position: latLngGuess,
-                  title: "guess",
+                  label: "guess"
               });
               markersArray.push(markerHome);
               markersArray.push(markerGuess);
               drawMarkers(map);
+              var pathLine = [latLngHome, latLngGuess]
+              var path = new google.maps.Polyline({
+                  path: pathLine,
+                  geodesic: true,
+                  strokeColor: '#FF0000',
+                  strokeOpacity: 1.0,
+                  strokeWeight: 2
+              });
+
+              path.setMap(map);
+              map.panTo(latLngGuess);
           }
           localStorage.setItem("back", "nope");
           google.maps.event.addListener(map, 'click', function(e) {
