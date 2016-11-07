@@ -31,22 +31,37 @@
   <body>
     <div id="street-view"></div>
     <div class="col-md-12 text-center">
-        <button type="button" class="btn btn-primary" id="btn" onClick="loadMap()">I'm Home</button>
+        <button type="button" class="btn btn-primary" id="btn" onClick="done()">I'm Home</button>
     </div>
     <script>
-      var panorama;
       var homeLat = localStorage.getItem("homeLat");
       var homeLng = localStorage.getItem("homeLng");
+      var destLat = 0;
+      var destLng = 0;
       var oneKm   = 0.009000009;
+
       function initialize() {
           checkStreetview();
-          panorama = new google.maps.StreetViewPanorama(
+          var panorama = new google.maps.StreetViewPanorama(
             document.getElementById('street-view'),
             {
               position: {lat: parseFloat(homeLat+oneKm), lng: parseFloat(homeLng+oneKm)},
               pov: {heading: 165, pitch: 0},
               zoom: 1
             });
+            panorama.addListener('position_changed', function() {
+                destLat = panorama.getPosition().lat();
+                destLng = panorama.getPosition().lng();
+            });
+      }
+
+      function done(){
+          localStorage.setItem("homeLng", homeLng);
+          localStorage.setItem("destLat", homeLat);
+          localStorage.setItem("destLng", destLng);
+          localStorage.setItem("homeLat", destLat);
+          localStorage.setItem("back", "back");
+          loadMap();
       }
       function checkStreetview() {
           var streetViewService = new google.maps.StreetViewService();
