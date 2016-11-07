@@ -89,6 +89,7 @@
               });
 
               path.setMap(map);
+              map.setZoom(17);
               map.panTo(latLngGuess);
           }
           localStorage.setItem("back", "nope");
@@ -123,7 +124,7 @@
 
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-4_JKDJrX5Ub1VkFIfcKGloDEpKae5lY&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-4_JKDJrX5Ub1VkFIfcKGloDEpKae5lY&callback=initMap&sensor=false">
     </script>
   </body>
 </html>
